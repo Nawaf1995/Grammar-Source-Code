@@ -1,0 +1,118 @@
+"Start Symbol" = <Main>
+Comment Line = '//' 
+Comment Start = '/*'
+Comment End = '*/'
+stop = ':'            
+Ident = {Letter}{AlphaNumeric}*
+Number = {Digit}+('.'{Digit}+)?       
+{String ch} = {Printable} -["]
+StringLiteral = '"' {String ch}* '"'  
+              
+<Main> ::= program begin stop <Statements> end
+        
+
+<Statements> ::= <Statement> |<Statement> <Statements> 
+              
+<Statement> ::= <Expression>
+             | <VariableDeclarators>
+             | <Condition>
+             | <Loops>
+             | <Counters>
+             | <DataType>
+             | <MethodDeclaration>
+             | <MethodCall>
+             | <Array>
+             | <Print>
+
+
+            
+             
+             
+
+ <Expression> ::= <Expression> '>' <Addtion>
+              | <Expression> '<' <Addtion>
+              | <Expression> '==' <Addtion>
+              | <Expression> '>=' <Addtion>
+              | <Expression> '<=' <Addtion>
+              | <Addtion>
+ 
+              
+<Addtion> ::= <Addtion> '+' <Mult>
+           | <Addtion> '-' <Mult>
+           | <Mult>
+           
+<Mult> ::= <Mult> '*' <Value>
+        | <Mult> '/' <Value>
+        | <Value>
+      
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+<VariableDeclarators> ::= <VariableDeclarator> | <VariableDeclarator> ',' <VariableDeclarators>
+
+<VariableDeclarator> ::= <Value> '=' <VariableInitilizer>
+
+<VariableInitilizer> ::= <Expression>
+                      
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+<Condition> ::= if <Expression> then stop <Statements> endif
+             | elif <Statements> stop
+             | else <Statements>
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+<Loops>::= while <Expression> stop <Statement>
+        | for '(' <Statement> ';' <Statement> ';' <Statement> ')'
+        
+<Counters> ::= <Value> '++' | '++'<Value> | <Value> '+='
+            | <Value> '--' | '--'<Value> | <Value> '-='
+          
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+<DataType> ::= <Numeric>
+            
+<Numeric>::= <IntergerType> | <FloatingType>
+          
+<IntergerType>::= 'int' | 'short' | 'char'
+               
+<FloatingType>::= 'double' | 'float'
+               
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+<MethodDeclaration> ::= def <MethodHeader> <MethodBody>
+  
+<MethodHeader>::= <DataType> <MethodDeclarator>   
+               
+<MethodDeclarator>::= Ident '(' ')' stop   
+                   | Ident '(' <ForamlParaList> ')' stop   
+                   
+<ForamlParaList>::= <ForamlPara> | <ForamlPara> ',' <ForamlPara> 
+                 
+<ForamlPara> ::= <DataType> <Value>        
+                 
+<MethodBody>::= <Statements> enddef
+             
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+<MethodCall> ::= Ident '(' <Argument> ')'
+
+<Argument> ::= <Value> | <Argument> ',' <Value>
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+<Array> ::= <DataType> Ident '[' ']'
+         | <DataType> Ident '[' Number ']'
+         | <DataType> Ident '[' Number ']' '=' <Value>
+     
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+<Print> ::= print '(' <Value> ')' |  print '(' <Expression> ')'
+
+<Value> ::= '$'Ident | Number | stringLiteral
+              
+              
+
+
+              
+
+        
+
+
+ 
+
